@@ -6,7 +6,7 @@ on:
 
 jobs:
   generate-chart:
-    name: Generate chart
+    name: auth with a gh app
     runs-on: ubuntu-latest
     steps:
       - name: Generate a token
@@ -17,11 +17,11 @@ jobs:
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
 
-      - name: Get issues
-        run: |
-          gh auth status
-          echo 'Getting Project issues issues count...'
-          gh project item-list 3 --owner mpchenette
+      - run: gh auth status
+        env:
+          GH_TOKEN: ${{ secrets.CLASSIC_PAT }}
+
+      - run: gh project item-list 3 --owner mpchenette
         env:
           GH_TOKEN: ${{ secrets.CLASSIC_PAT }}
   
