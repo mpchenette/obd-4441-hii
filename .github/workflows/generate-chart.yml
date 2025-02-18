@@ -26,7 +26,7 @@ jobs:
           GH_TOKEN: ${{ steps.generate-token.outputs.token }}
           ORG: ${{ github.repository_owner }}
           OWNER: 'mpchenette'
-          REPO: 'abc'
+          REPO: 'obd-4441-hii'
           PROJECT_NUMBER: 3
         run: |
           gh auth status
