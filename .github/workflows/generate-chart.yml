@@ -11,10 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
-      - name: Authenticate GitHub CLI
-        run: gh auth login --with-token ${{ secrets.GITHUB_TOKEN }}
+      # - name: Authenticate GitHub CLI
+      #   run: gh auth login --with-token ${{ secrets.GITHUB_TOKEN }}
       - name: Get issues
         run: |
           gh auth status
           echo 'Getting Project issues issues count...'
           gh project item-list 4 --owner mpchenette --limit 10
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
