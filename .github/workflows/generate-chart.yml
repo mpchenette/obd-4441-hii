@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
+      - name: Authenticate GitHub CLI
+        run: gh auth login --with-token ${{ secrets.GITHUB_TOKEN }}
       - name: Get issues
         run: |
           gh auth status
