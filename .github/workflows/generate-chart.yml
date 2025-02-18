@@ -9,14 +9,26 @@ jobs:
   generate-chart:
     name: Generate chart
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      issues: read
+      repository-projects: read
     steps:
-      # - name: Authenticate GitHub CLI
-      #   run: gh auth login --with-token ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: 1150056
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+
       - name: Get issues
+        env:
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+          ORG: ${{ github.repository_owner }}
+          OWNER: 'mpchenette'
+          REPO: 'abc'
+          PROJECT_NUMBER: 3
         run: |
           gh auth status
           echo 'Getting Project issues issues count...'
-          gh project item-list 4 --owner mpchenette --limit 10
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          gh project item-list 3 --owner mpchenette --limit 10
