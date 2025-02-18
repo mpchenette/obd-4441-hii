@@ -9,50 +9,20 @@ jobs:
   generate-chart:
     name: Generate chart
     runs-on: ubuntu-latest
-    permissions:
-      issues: read
-      repository-projects: read
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Generate JWT
-        id: generate_jwt
-        uses: actions/github-script@v6
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
         with:
-          script: |
-            const jwt = require('jsonwebtoken');
-            const fs = require('fs');
-            const privateKey = fs.readFileSync('/path/to/private-key.pem', 'utf8');
-            const payload = {
-              iat: Math.floor(Date.now() / 1000),
-              exp: Math.floor(Date.now() / 1000) + (10 * 60), // 10 minutes
-              iss: process.env.APP_ID
-            };
-            const token = jwt.sign(payload, privateKey, { algorithm: 'RS256' });
-            return token;
-        env:
-          APP_ID: ${{ secrets.GITHUB_APP_ID }}
-
-      - name: Get installation access token
-        id: get_installation_token
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const token = await github.apps.createInstallationAccessToken({
-              installation_id: process.env.INSTALLATION_ID,
-              repository_ids: [process.env.REPOSITORY_ID]
-            });
-            return token.data.token;
-        env:
-          GITHUB_TOKEN: ${{ steps.generate_jwt.outputs.result }}
-          INSTALLATION_ID: ${{ secrets.GITHUB_APP_INSTALLATION_ID }}
-          REPOSITORY_ID: ${{ secrets.GITHUB_REPOSITORY_ID }}
+          app-id: 1150056
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
 
       - name: Get issues
-        env:
-          GH_TOKEN: ${{ steps.get_installation_token.outputs.result }}
         run: |
           gh auth status
           echo 'Getting Project issues issues count...'
           gh project item-list 3 --owner mpchenette
+        env:
+          TOKEN: ${{ secrets.CLASSIC_PAT }}
+  
