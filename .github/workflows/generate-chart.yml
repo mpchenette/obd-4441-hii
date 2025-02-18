@@ -13,13 +13,13 @@ jobs:
       issues: read
       repository-projects: read
     steps:
-      - name: Generate a token
-        id: generate-token
-        uses: actions/create-github-app-token@v1
-        with:
-          app-id: 1150056
-          private-key: ${{ secrets.APP_PRIVATE_KEY }}
-          owner: ${{ github.repository_owner }}
+      # - name: Generate a token
+      #   id: generate-token
+      #   uses: actions/create-github-app-token@v1
+      #   with:
+      #     app-id: 1150056
+      #     private-key: ${{ secrets.APP_PRIVATE_KEY }}
+      #     owner: ${{ github.repository_owner }}
 
       - name: Get issues
         env:
