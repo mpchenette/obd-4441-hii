@@ -23,12 +23,6 @@ jobs:
       - run: gh auth login --with-token <<< ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get issues
-        env:
-          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
-          ORG: ${{ github.repository_owner }}
-          OWNER: 'mpchenette'
-          REPO: 'abc'
-          PROJECT_NUMBER: 4
         run: |
           gh auth status
           echo 'Getting Project issues issues count...'
