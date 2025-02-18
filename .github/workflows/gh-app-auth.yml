@@ -1,10 +1,9 @@
-name: checking gh project item-list
-
-permissions: write-all
+name: auth with a gh app
 
 on:
   workflow_dispatch:
   push:
+
 jobs:
   generate-chart:
     name: Generate chart
@@ -24,5 +23,5 @@ jobs:
           echo 'Getting Project issues issues count...'
           gh project item-list 3 --owner mpchenette
         env:
-          TOKEN: ${{ secrets.CLASSIC_PAT }}
+          GH_TOKEN: ${{ secrets.CLASSIC_PAT }}
   
