@@ -24,5 +24,5 @@ jobs:
           echo 'Getting Project issues issues count...'
           gh project item-list 3 --owner mpchenette
         env:
-          GH_TOKEN: ${{ secrets.CLASSIC_PAT }}
+          TOKEN: ${{ secrets.CLASSIC_PAT }}
   
