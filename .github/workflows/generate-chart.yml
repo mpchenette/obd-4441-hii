@@ -9,9 +9,7 @@ jobs:
   generate-chart:
     name: Generate chart
     runs-on: ubuntu-latest
-    permissions:
-      issues: read
-      repository-projects: read
+    permissions: write-all
     steps:
       # - name: Generate a token
       #   id: generate-token
