@@ -31,4 +31,4 @@ jobs:
         run: |
           gh auth status
           echo 'Getting Project issues issues count...'
-          gh project item-list 3 --owner mpchenette --limit 10
+          gh project item-list 3
