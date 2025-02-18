@@ -23,7 +23,7 @@ jobs:
 
       - name: Get issues
         env:
-          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+          GH_TOKEN: ${{ secrets.CLASSIC_PAT }}
           ORG: ${{ github.repository_owner }}
           OWNER: 'mpchenette'
           REPO: 'obd-4441-hii'
