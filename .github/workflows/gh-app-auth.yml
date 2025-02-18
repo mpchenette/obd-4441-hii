@@ -9,17 +9,15 @@ jobs:
     name: auth with a gh app
     runs-on: ubuntu-latest
     steps:
-      - name: Generate a token
+      - uses: actions/create-github-app-token@v1
         id: generate-token
-        uses: actions/create-github-app-token@v1
         with:
           app-id: 1150056
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
-          owner: ${{ github.repository_owner }}
 
       - run: gh auth status
         env:
-          GH_TOKEN: ${{ secrets.CLASSIC_PAT }}
+          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
 
       - run: gh project item-list 3 --owner mpchenette
         env:
