@@ -19,7 +19,7 @@ jobs:
         env:
           GH_TOKEN: ${{ steps.generate-token.outputs.token }}
 
-      - run: gh project item-list 3 --owner mpchenette
+      - run: gh project item-list 4 --owner mpchenette
         env:
-          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+          GH_TOKEN: ${{ secrets.NO_PRIV_CLASSIC_PAT }}
   
